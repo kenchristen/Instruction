@@ -5,7 +5,24 @@ const app = express();
 app.use(express.json());
 
 app.get("/", (req, res) => res.send("API Gemini OK ✅"));
+app.get("/test-generate", async (req, res) => {
+  try {
+    const apiKey = process.env.GEMINI_API_KEY;
+    if (!apiKey) return res.status(500).send("GEMINI_API_KEY manquante");
 
+    const { GoogleGenAI } = await import("@google/genai");
+    const ai = new GoogleGenAI({ apiKey });
+
+    const r = await ai.models.generateContent({
+      model: "gemini-2.0-flash",
+      contents: "Réponds juste: OK backend Gemini",
+    });
+
+    res.send(r.text ?? "");
+  } catch (e) {
+    res.status(500).send(String(e?.message || e));
+  }
+});
 app.post("/generate", async (req, res) => {
   try {
     const apiKey = process.env.GEMINI_API_KEY;
