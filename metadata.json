@@ -1,0 +1,8 @@
+{
+  "name": "CP25 instruction : Assistant de création d'instructions",
+  "description": "Assistant intelligent pour la conception de plans d'instruction Sapeurs-Pompiers",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}

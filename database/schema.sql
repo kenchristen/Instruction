@@ -1,0 +1,14 @@
+-- Schéma de base de données pour MariaDB
+
+CREATE DATABASE IF NOT EXISTS cp25_instructions;
+USE cp25_instructions;
+
+CREATE TABLE IF NOT EXISTS plans (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    uuid VARCHAR(36) NOT NULL UNIQUE,
+    title VARCHAR(255) NOT NULL,
+    plan_type ENUM('LESSON', 'INSTRUCTION') NOT NULL,
+    content LONGTEXT NOT NULL, -- Stockage du JSON complet du plan
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
